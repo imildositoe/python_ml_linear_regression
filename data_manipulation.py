@@ -12,15 +12,20 @@ import pandas as pd
 
 
 """
-Read the training datasets (A), test dataset (B), and ideal functions dataset (C) from the CSV files.
+Function to read the CSV files
 """
-def readFiles():
-    data = pd.read_csv("datasets/train.csv")
-    print(data)
+def get_data(file_path):
+    return pd.read_csv(file_path)
+
+
+
+
 
 
 def main():
-    readFiles()
+    print(get_data("datasets/train.csv"))
+    print(get_data("datasets/test.csv"))
+    print(get_data("datasets/ideal.csv"))
 
 if __name__ == "__main__":
     main()
