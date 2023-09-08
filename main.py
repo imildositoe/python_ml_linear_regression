@@ -7,8 +7,8 @@
 import pandas as pd
 import matplotlib.pyplot as plt
 
-
+#Data processing
 data = pd.read_csv('datasets/train.csv')
+data = pd.read_csv('datasets/test.csv')
+data = pd.read_csv('datasets/ideal.csv')
 
-plt.scatter(data.x, data.y1, data.y2, data.y3, data.y4)
-plt.show()
