@@ -91,5 +91,5 @@ def main():
         test_data = [[8]]
         regression(test_data,reg)
 
-if __name__ == "__main__": 
-            main()
+if __name__ == "__main__":
+    main()
