@@ -12,12 +12,12 @@ import seaborn as sns
 from sklearn.linear_model import Ridge 
 from sklearn.preprocessing import StandardScaler 
 # Load the data 
-train_df = pd.read_csv('train.csv') 
-test_df = pd.read_csv('test.csv') 
-ideal_df = pd.read_csv('ideal.csv') 
-train_df=pd.read_csv('train.csv') 
-test_df=pd.read_csv('test.csv')
-ideal_df=pd.read_csv('ideal.csv') 
+train_df = pd.read_csv('datasets/train.csv') 
+test_df = pd.read_csv('datasets/test.csv') 
+ideal_df = pd.read_csv('datasets/ideal.csv') 
+train_df=pd.read_csv('datasets/train.csv') 
+test_df=pd.read_csv('datasets/test.csv')
+ideal_df=pd.read_csv('datasets/ideal.csv') 
 train_df 
 ideal_df 
 test_df 
