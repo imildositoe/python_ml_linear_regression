@@ -79,8 +79,17 @@ def main():
         intercept = reg.intercept_ 
         print('Coefficient/slope: {}'.format(coef)) 
         print('Intercept: {}'.format(intercept)) 
+
         #plotting the training data with regression result 
         plt.scatter(train_df.iloc[:,0], train_df.iloc[:,1], color='blue') 
         plt.plot(train_x, coef * train_x + intercept, color='red') 
         plt.xlabel('Train X') 
         plt.ylabel('Train Y')
+        plt.show()
+
+        #regression to predict - best candidate for the function 
+        test_data = [[8]]
+        regression(test_data,reg)
+
+if __name__ == "__main__": 
+            main()
