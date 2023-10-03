@@ -5,51 +5,44 @@
 """
 
 
-
-# Imports
-import pandas as pd
-
-
-
-"""
-Function to read the CSV files
-"""
-def get_data(file_path):
-    return pd.read_csv(file_path)
-
-
-"""
-Function to calculate the squared deviations of the data
-"""
-def squared_deviations():
-    train_data = get_data("datasets/train.csv")
-    test_data = get_data("datasets/test.csv")
-    ideal_data = get_data("datasets/ideal.csv")
-
-
-    # Calculate the sum of squared deviations for each of the 50 ideal functions using the training datasets.
-    # Select the four ideal functions with the lowest sum of squared deviations.
-    for index, row in ideal_data.iterrows():
-        for column in ideal_data.columns:
-            value = row[column]
-            print(value)
-            # y1 = (y11 - Y1(x1))^2, (y21 - Y1(x2))^2, ..., (y1n - Y1(xn))^2
-            # y1 = sum ((y11 - Y1(x1))^2)) + ((y21 - Y1(x2))^2) + ,..., (y1n - Y1(xn))^2))
-            # y2 = sum ((y12 - Y2(x1))^2)) + ((y21 - Y1(x2))^2) + ,..., (y1n - Y1(xn))^2))
-
-            # select the 4 lowest between [y1, y2, ..., yn]
-    
-    # Return the four selected ideal functions
-
-
-
-
-
-def main():
-    # print(get_data("datasets/train.csv"))
-    # print(get_data("datasets/test.csv"))
-    # print(get_data("datasets/ideal.csv"))
-    squared_deviations()
-
-if __name__ == "__main__":
-    main()
+import numpy as np 
+import pandas as pd 
+import matplotlib.pyplot as plt 
+import seaborn as sns 
+from sklearn.linear_model import Ridge 
+from sklearn.preprocessing import StandardScaler 
+# Load the data 
+train_df = pd.read_csv('train.csv') 
+test_df = pd.read_csv('test.csv') 
+ideal_df = pd.read_csv('ideal.csv') 
+train_df=pd.read_csv('train.csv') 
+test_df=pd.read_csv('test.csv')
+ideal_df=pd.read_csv('ideal.csv') 
+train_df 
+ideal_df 
+test_df 
+plt.figure(figsize=(15,6)) 
+sns.lineplot(x=train_df['x'],y=train_df['y1'],data=train_df) 
+plt.show() 
+plt.figure(figsize=(15,6)) 
+sns.lineplot(x=test_df['x'],y=test_df['y'],data=test_df) 
+plt.show() 
+# Define the features and target 
+X_train = train_df[['x']] 
+y_train = train_df['y1'] 
+X_test = test_df[['x']] 
+y_test = test_df['y'] 
+# Scale the features 
+scaler = StandardScaler() 
+X_train_scaled = scaler.fit_transform(X_train) 
+X_test_scaled = scaler.transform(X_test) 
+# Fit the ridge regression model 
+ridge = Ridge(alpha=1) # Choose a value for alpha 
+ridge.fit(X_train_scaled, y_train) 
+# Predict the target values for the test set 
+y_pred = ridge.predict(X_test_scaled) 
+# Plot the results 
+plt.figure(figsize=(15,6)) 
+sns.lineplot(x=train_df['x'], y=train_df['y1'], data=train_df) 
+sns.lineplot(x=test_df['x'], y=y_pred, color='red') 
+plt.show()

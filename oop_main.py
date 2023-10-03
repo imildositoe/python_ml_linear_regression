@@ -118,3 +118,4 @@ if __name__ == "__main__":
 
     # Visualize the data
     processor.visualize_data()
+76, 64, 67, 79
