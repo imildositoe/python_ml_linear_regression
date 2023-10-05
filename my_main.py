@@ -47,9 +47,11 @@ class DataManipulation:
     """DataManipulation class serves to load and manipulate the given .csv files"""
 
     # Load data
-    train = pd.read_csv('datasets/train.csv')
-    test = pd.read_csv('datasets/test.csv')
-    ideal = pd.read_csv('datasets/ideal.csv')
+    train = pd.read_csv('train.csv')
+    test = pd.read_csv('test.csv')
+    ideal = pd.read_csv('ideal.csv')
 
-    def dataPreparation():
-        x = ''
+    print(train[0])
+
+    # Extract data
+    
