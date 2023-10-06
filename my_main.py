@@ -17,30 +17,19 @@ class Connection:
         self.y2 = y2
 
     # Connect to DB and create a cursor
-    conn = sqlite3.connect('data.db')
-    cursor = conn.cursor()
+    
 
     # Write a query and execute it with cursor
-    cursor.execute('''CREATE TABLE IF NOT EXISTS data (x, y1, y2)''')
-    conn.commit()
+    
 
     # Test data and insert into a database
-    function_list = [
-        (1, 2, 3),
-        (3, 2, 1),
-        (2, 1, 3)
-    ]
-    cursor.executemany('''INSERT INTO data (x, y1, y2) VALUES (?, ?, ?)''', function_list)
-    conn.commit()
+    
 
     # Pull and display data
-    function_data = cursor.execute("SELECT * FROM data")
-    for row in function_data:
-        print(row)
+    
 
     # Close DB objects
-    cursor.close()
-    conn.close()
+    
 
 
 class DataManipulation:
