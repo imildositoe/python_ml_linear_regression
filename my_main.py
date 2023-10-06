@@ -6,7 +6,7 @@
 
 import numpy as np
 import pandas as pd
-import sqlite3
+import sqlalchemy as db
 
 class Connection:
     """This class serves to establish all necessary connections of the application into the database SQLite"""
@@ -16,19 +16,19 @@ class Connection:
         self.y1 = y1
         self.y2 = y2
 
-    # Connect to DB and create a cursor
-    
+    # Create, connect to DB and create the metadata
+    eng = db.create_engine('sqlite:///train_db.db')
+    conn = eng.connect()
+    meta = db.MetaData()
 
-    # Write a query and execute it with cursor
-    
+    # Create a table train with all fields
+    train = db.Table('train', meta,
+                    db.Column('x (training func)', db.Float()),
+                    db.Column('y1 (training func)', db.Float()),
+                    db.Column('y2 (training func)', db.Float()),
+                    db.Column('y3 (training func)', db.Float()),
+                    db.Column('y4 (training func)', db.Float()))
 
-    # Test data and insert into a database
-    
-
-    # Pull and display data
-    
-
-    # Close DB objects
     
 
 
