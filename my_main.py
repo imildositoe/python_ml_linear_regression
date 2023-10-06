@@ -11,10 +11,8 @@ import sqlalchemy as db
 class Connection:
     """This class serves to establish all necessary connections of the application into the database SQLite"""
 
-    def ___init___(self, x1, y1, y2):
+    def ___init___(self, x1):
         self.x1 = x1
-        self.y1 = y1
-        self.y2 = y2
 
     # Create, connect to DB and create the metadata
     eng = db.create_engine('sqlite:///train_db.db')
@@ -29,7 +27,7 @@ class Connection:
                     db.Column('y3 (training func)', db.Float()),
                     db.Column('y4 (training func)', db.Float()))
 
-    
+    ### Try to load csv data directly and create the  table /// OR /// LOAD THE CSV AND LOOP THE DATA AND EXECUTE QUERIES INSERT INTO THE TRAIN DATA
 
 
 class DataManipulation:
@@ -41,6 +39,4 @@ class DataManipulation:
     ideal = pd.read_csv('ideal.csv')
 
     print(train[0])
-
-    # Extract data
     
