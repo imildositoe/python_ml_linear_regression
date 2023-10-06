@@ -109,9 +109,9 @@ if __name__ == "__main__":
     processor = DataProcessor(db_path)
 
     # Load training data, ideal functions, and test data
-    processor.load_training_data('datasets/train.csv')
-    processor.load_ideal_functions('datasets/ideal.csv')
-    processor.load_test_data('datasets/test.csv')
+    processor.load_training_data('train.csv')
+    processor.load_ideal_functions('ideal.csv')
+    processor.load_test_data('test.csv')
 
     # Match test data to ideal functions and calculate deviations
     processor.match_and_calculate_deviations()

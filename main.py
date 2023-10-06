@@ -11,9 +11,9 @@ import unittest
 
 # Step 1: Data Preprocessing
 # Read data from CSV files into pandas DataFrames
-train_df = pd.read_csv('datasets/train.csv')
-test_df = pd.read_csv('datasets/test.csv')
-ideal_df = pd.read_csv('datasets/ideal.csv')
+train_df = pd.read_csv('train.csv')
+test_df = pd.read_csv('test.csv')
+ideal_df = pd.read_csv('ideal.csv')
 
 # Extract x and y columns from the DataFrames
 x_train = train_df['x'].values
