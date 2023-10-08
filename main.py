@@ -13,12 +13,14 @@ import pandas as pd
 Session = sessionmaker(bind=db.engine)
 session = Session()
 
-for row in session.query(db.Train).all():
-    print(row.x, row.y1)
-
-
-# Youtube how to create a training model || check results of ChatGPT as well
 
 # Iteration with a filter case
 # for row in session.query(db.Train).filter(db.Train.x > 1):
 #     print(row)
+
+
+for row in session.query(db.Train).all():
+    print(row.x, row.y1)
+
+
+########### Youtube how to create a training model || check results of ChatGPT as well ############
