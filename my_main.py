@@ -55,7 +55,7 @@ def connection():
         # print('y3 = ', train_list.loc[row, "y3"])
         # print('y4 = ', train_list.loc[row, "y4"])
         
-        result = conn.execute('INSERT INTO "train" (x, y1, y2, y3) VALUES (:train_list.loc[row, "x"], train_list.loc[row, "y1"], train_list.loc[row, "y2"], train_list.loc[row, "y3"], train_list.loc[row, "y4"])')
+        result = conn.execute('INSERT INTO "train" (x, y1, y2, y3) VALUES (train_list.loc[row, "x"], train_list.loc[row, "y1"], train_list.loc[row, "y2"], train_list.loc[row, "y3"], train_list.loc[row, "y4"])')
         # result = conn.execute(train_query)
     print(result)
 
