@@ -46,19 +46,23 @@ def connection():
     ideal_list = pd.read_csv('ideal.csv')
 
     for row in range(len(train_list)): # inserting train data
-        for column in range(len(train_list.loc[row])):
+        # for column in range(len(train_list.loc[row])):
 
-            # train_query = db.insert(train_table).values(train_list)
-            # conn.execute(train_query)
+        # train_query = train_table.insert().values(data)
+        # print('x = ', train_list.loc[row, "x"])
+        # print('y1 = ', train_list.loc[row, "y1"])
+        # print('y2 = ', train_list.loc[row, "y2"])
+        # print('y3 = ', train_list.loc[row, "y3"])
+        # print('y4 = ', train_list.loc[row, "y4"])
+        
+        result = conn.execute('INSERT INTO "train" (x, y1, y2, y3) VALUES (:train_list.loc[row, "x"], train_list.loc[row, "y1"], train_list.loc[row, "y2"], train_list.loc[row, "y3"], train_list.loc[row, "y4"])')
+        # result = conn.execute(train_query)
+    print(result)
 
-            # output = conn.execute(db.select([train_table])).fetchall()
+    # output = conn.execute(db.select([train_table])).fetchall()
+    # print(output)
 
-            # print(output)
-
-            print('Row ', row,', column ', column, ':', train_list.loc[row][column])
-        print('-------------------BREAK----------------------')
-        if row == 3:
-            break
+    # print('Row ', row,', column ', column, ':', train_list.loc[row][column])
 
 
 
