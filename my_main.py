@@ -11,39 +11,63 @@ import sqlalchemy as db
 def connection():
     """This function serves to establish all necessary connections of the application into the database SQLite"""
 
-    def ___init___(self, x1):
-        self.x1 = x1
-
     # Create, connect to DB and create the metadata
-    eng = db.create_engine('sqlite:///train_db.db')
+    eng = db.create_engine('sqlite:///ml_db.db')
     conn = eng.connect()
     meta = db.MetaData()
 
-    # Create a table train with all fields
-    train = db.Table('train', meta,
-                    db.Column('x (training func)', db.Float()),
-                    db.Column('y1 (training func)', db.Float()),
-                    db.Column('y2 (training func)', db.Float()),
-                    db.Column('y3 (training func)', db.Float()),
-                    db.Column('y4 (training func)', db.Float()))
+    # Create the tables with all fields
+    train_table = db.Table('train', meta,
+                    db.Column('x', db.Float),
+                    db.Column('y1', db.Float),
+                    db.Column('y2', db.Float),
+                    db.Column('y3', db.Float),
+                    db.Column('y4', db.Float))
+    meta.create_all(eng)
+    
+    # test_table = db.Table('test', meta,
+    #                 db.Column('x (training func)', db.Float()),
+    #                 db.Column('y1 (training func)', db.Float()),
+    #                 db.Column('y2 (training func)', db.Float()),
+    #                 db.Column('y3 (training func)', db.Float()),
+    #                 db.Column('y4 (training func)', db.Float()))
+    
+    # ideal_table = db.Table('ideal', meta,
+    #                 db.Column('x (training func)', db.Float()),
+    #                 db.Column('y1 (training func)', db.Float()),
+    #                 db.Column('y2 (training func)', db.Float()),
+    #                 db.Column('y3 (training func)', db.Float()),
+    #                 db.Column('y4 (training func)', db.Float()))
 
-    ### Try to load csv data directly and create the  table /// OR /// LOAD THE CSV AND LOOP THE DATA AND EXECUTE QUERIES INSERT INTO THE TRAIN DATA
+
+    # Loading data from csv files into the db created tables
+    train_list = pd.read_csv('train.csv')
+    test_list = pd.read_csv('test.csv')
+    ideal_list = pd.read_csv('ideal.csv')
+
+    for i in range(len(train_list)): # inserting train data
+        for j in range(len(train_list.loc[i])):
+
+            # train_query = db.insert(train_table).values(train_list)
+            # conn.execute(train_query)
+
+            # output = conn.execute(db.select([train_table])).fetchall()
+
+            # print(output)
+
+            print('Row ', i,', column ', j, ':', train_list.loc[i][j])
+        print('-------------------BREAK----------------------')
+        if i == 3:
+            break
+
 
 
 def dataManipulation():
     """DataManipulation function serves to load and manipulate the given .csv files"""
-
-    # Load data
-    train = pd.read_csv('train.csv')
-    test = pd.read_csv('test.csv')
-    ideal = pd.read_csv('ideal.csv')
-    print('Start')
-    for i in range(len(train)):
-        print(train.loc[i, "x"], ' || ', train.loc[i, "y1"])
     
 
 def main():
-    dataManipulation()
+    connection()
 
 if __name__ == "__main__":
     main()
