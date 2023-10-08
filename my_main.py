@@ -8,8 +8,8 @@ import numpy as np
 import pandas as pd
 import sqlalchemy as db
 
-class Connection:
-    """This class serves to establish all necessary connections of the application into the database SQLite"""
+def connection():
+    """This function serves to establish all necessary connections of the application into the database SQLite"""
 
     def ___init___(self, x1):
         self.x1 = x1
@@ -30,13 +30,20 @@ class Connection:
     ### Try to load csv data directly and create the  table /// OR /// LOAD THE CSV AND LOOP THE DATA AND EXECUTE QUERIES INSERT INTO THE TRAIN DATA
 
 
-class DataManipulation:
-    """DataManipulation class serves to load and manipulate the given .csv files"""
+def dataManipulation():
+    """DataManipulation function serves to load and manipulate the given .csv files"""
 
     # Load data
     train = pd.read_csv('train.csv')
     test = pd.read_csv('test.csv')
     ideal = pd.read_csv('ideal.csv')
-
-    print(train[0])
+    print('Start')
+    for i in range(len(train)):
+        print(train.loc[i, "x"], ' || ', train.loc[i, "y1"])
     
+
+def main():
+    dataManipulation()
+
+if __name__ == "__main__":
+    main()
