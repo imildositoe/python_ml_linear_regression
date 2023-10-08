@@ -45,8 +45,8 @@ def connection():
     test_list = pd.read_csv('test.csv')
     ideal_list = pd.read_csv('ideal.csv')
 
-    for i in range(len(train_list)): # inserting train data
-        for j in range(len(train_list.loc[i])):
+    for row in range(len(train_list)): # inserting train data
+        for column in range(len(train_list.loc[row])):
 
             # train_query = db.insert(train_table).values(train_list)
             # conn.execute(train_query)
@@ -55,9 +55,9 @@ def connection():
 
             # print(output)
 
-            print('Row ', i,', column ', j, ':', train_list.loc[i][j])
+            print('Row ', row,', column ', column, ':', train_list.loc[row][column])
         print('-------------------BREAK----------------------')
-        if i == 3:
+        if row == 3:
             break
 
 
