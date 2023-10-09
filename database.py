@@ -67,4 +67,5 @@ class Test(base):
         self.delta_y = delta_y
         self.nr_ideal_function = nr_ideal_function
 
+# def createAllTables():
 base.metadata.create_all(engine)

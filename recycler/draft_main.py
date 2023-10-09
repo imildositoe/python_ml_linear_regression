@@ -88,7 +88,6 @@ plt.xlabel('x')
 plt.ylabel('y')
 plt.legend()
 plt.title('Data Visualization')
-plt.grid(True)
 plt.show()
 
 
