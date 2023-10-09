@@ -63,12 +63,13 @@ plt.show()
 
 # Checking the score of the prediction
 pred_score = r2_score(y_train, y_pred_train)
-print('Pred score: ', pred_score)
 
 # Testing the model using the test dataset
-# y_pred_test = lr.predict(x_test)
-# plt.scatter(y_test, y_pred_test)
-# plt.xlabel('Y test')
-# plt.ylabel('Y prediction test')
-# plt.title('TEST DATA')
-# plt.show()
+y_pred_test = lr.predict(x_test)
+plt.scatter(y_test, y_pred_test)
+plt.xlabel('Y test')
+plt.ylabel('Y prediction test')
+plt.title('TEST DATA')
+plt.show()
+
+# Deviation and Ideal functions section
