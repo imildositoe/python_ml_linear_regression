@@ -91,5 +91,42 @@ chosen_ideal_functions = y_ideal[:, chosen_ideal_indices]
 
 # Deviation and Ideal functions section (mapping and calculating the deviation)
 # Deviation calculation for x-y pair and ideal function
-def deviation(y_test, y_ideal):
+def get_deviation(y_test, y_ideal):
     return np.sqrt(np.sum((y_test - y_ideal) ** 2))
+
+# Attribute x-y pairs from the test dataset to the chosen ideal functions
+deviations = []
+assignments = []
+
+for i in range(len(x_test)):
+    x_val = x_test[i]
+    y_val = y_test[i]
+
+    assigned_function = None
+    min_dev = float('inf')
+    
+    for j, ideal_function in enumerate(chosen_ideal_functions.T):
+        deviation = get_deviation(y_val, ideal_function)
+        if deviation < min_dev and deviation <= np.sqrt(2) * np.max(ideal_function_errors[chosen_ideal_indices[j]]):
+            min_dev = deviation
+            assigned_function = j
+
+    if assigned_function is not None:
+        assignments.append(assigned_function)
+        deviations.append(min_dev)
+    else:
+        assignments.append(None)
+        deviations.append(None)
+
+# Logically visualize the chosen ideal functions
+
+
+# Showing the assignments and deviations for each test data point
+print("Chosen ideal function indices:", chosen_ideal_indices)
+
+for i in range(len(x_test)):
+        print(f"Test data ({x_test[i]}, {y_test[i]}):")
+        print(f"Assigned ideal function: {assignments[i]}")
+        print(f"Deviation: {deviations[i]}")
+        print("\n")
+        print('#########################################')
