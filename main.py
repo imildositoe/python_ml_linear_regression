@@ -33,11 +33,17 @@ df_train = pd.DataFrame(train_data)
 x_train = df_train[['x']]
 y_train = df_train.drop(columns=['id', 'x'])
 
+# Querying Ideal data from sqlite database and converting to dataframe
+ideal_data = session.query(db.Ideal.__table__).all()
+df_ideal = pd.DataFrame(ideal_data)
+x_ideal = df_ideal[['x']]
+y_ideal = df_ideal.drop(columns=['id', 'x'])
+
 # Querying Test data from sqlite database and converting to dataframe
 test_data = session.query(db.Test.__table__).all()
 df_test = pd.DataFrame(test_data)
-# x_test = df_test[['x']]
-# y_test = df_test[['y']]
+x_test = df_test[['x']]
+y_test = df_test[['y']]
 
 # Visualizing the original data logically as described in the task
 plt.scatter(x_train, y_train[['y1']], color='red')
@@ -72,8 +78,18 @@ plt.ylabel('Y prediction test')
 plt.title('TEST DATA')
 plt.show()
 
-# Deviation and Ideal functions section
+# Deviation and Ideal functions section (Choosing the ideal fucntion)
 # Return the sum of squared y deviations for each ideal function for the provided training data
 def sum_squared_dev(y_train, y_ideal):
     return np.sum((y_train - y_ideal) ** 2, axis=0)
 
+ideal_function_errors = sum_squared_dev(y_train, y_ideal)
+
+# Choosing the 4 ideal functions that minimize the sum of squared deviations
+chosen_ideal_indices = np.argsort(ideal_function_errors)[:4]
+chosen_ideal_functions = y_ideal[:, chosen_ideal_indices]
+
+# Deviation and Ideal functions section (mapping and calculating the deviation)
+# Deviation calculation for x-y pair and ideal function
+def deviation(y_test, y_ideal):
+    return np.sqrt(np.sum((y_test - y_ideal) ** 2))
