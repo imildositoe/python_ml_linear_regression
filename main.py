@@ -73,3 +73,7 @@ plt.title('TEST DATA')
 plt.show()
 
 # Deviation and Ideal functions section
+# Return the sum of squared y deviations for each ideal function for the provided training data
+def sum_squared_dev(y_train, y_ideal):
+    return np.sum((y_train - y_ideal) ** 2, axis=0)
+
