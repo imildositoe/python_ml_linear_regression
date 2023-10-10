@@ -1,11 +1,18 @@
-from sqlalchemy.orm import sessionmaker
+'''
+@author: Imildo Sitoe <imildo.sitoe@iu-study.org>
+@description: this file contains classes and methods esponsible for creating the db and its tables
+'''
+
 from sqlalchemy import create_engine, Column, Float, Integer
 from sqlalchemy.orm import declarative_base
-
 
 #database connection
 engine = create_engine('sqlite:///ml_db.sqlite', echo=True)
 base = declarative_base()
+
+class DB(object):
+    '''Parent class of the database containing common attributes'''
+    __tablename__ = ''
 
 class Train(base):
     __tablename__ = 'train'
@@ -67,5 +74,6 @@ class Test(base):
         self.delta_y = delta_y
         self.nr_ideal_function = nr_ideal_function
 
-# def createAllTables():
-base.metadata.create_all(engine)
+# Function to create the db and all tables
+def createAllTables():
+    base.metadata.create_all(engine)

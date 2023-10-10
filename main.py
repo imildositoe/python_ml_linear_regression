@@ -1,12 +1,11 @@
-"""
-@author: Imildo Sitoe
-@email: imildo.sitoe@iu-study.org
+'''
+@author: Imildo Sitoe <imildo.sitoe@iu-study.org>
 @description: this file contains all python assignment task code using oop
-"""
+'''
 
 from sqlalchemy.orm import sessionmaker
 import database as db
-# import data_loading
+import data_loading as dl
 import numpy as np
 import pandas as pd
 from sklearn.linear_model import LinearRegression
@@ -16,8 +15,6 @@ from sklearn.metrics import r2_score
 #Creating a session
 Session = sessionmaker(bind=db.engine)
 session = Session()
-# dl = data_loading
-
 
 # Iteration with a filter case
 # for row in session.query(db.Train).filter(db.Train.x > 1):
@@ -72,11 +69,11 @@ pred_score = r2_score(y_train, y_pred_train)
 
 # Testing the model using the test dataset
 y_pred_test = lr.predict(x_test)
-plt.scatter(y_test, y_pred_test)
-plt.xlabel('Y test')
-plt.ylabel('Y prediction test')
-plt.title('TEST DATA')
-plt.show()
+# plt.scatter(y_test, y_pred_test)
+# plt.xlabel('Y test')
+# plt.ylabel('Y prediction test')
+# plt.title('TEST DATA')
+# plt.show()
 
 # Deviation and Ideal functions section (Choosing the ideal fucntion)
 # Return the sum of squared y deviations for each ideal function for the provided training data
@@ -119,7 +116,21 @@ for i in range(len(x_test)):
         deviations.append(None)
 
 # Logically visualize the chosen ideal functions
+# for i, ideal_function in enumerate(chosen_ideal_functions.T):
+#     plt.plot(ideal_x, ideal_function, label=f'Chosen Ideal Function {i + 1}', linestyle='--')
 
+# # Plot the test data with assignments and deviations
+# for i, assignment in enumerate(assignments):
+#     if assignment is not None:
+#         color = ['b', 'g', 'r', 'm'][assignment]
+#         plt.scatter(x_test[i], y_test[i], label=f'Test Data {i}', marker='x', color=color)
+#         plt.annotate(f'Deviation: {deviations[i]:.2f}', (x_test[i], y_test[i]), textcoords="offset points", xytext=(0, 10), ha='center')
+
+# plt.xlabel('x')
+# plt.ylabel('y')
+# plt.legend()
+# plt.title('Data Visualization')
+# plt.show()
 
 # Showing the assignments and deviations for each test data point
 print("Chosen ideal function indices:", chosen_ideal_indices)
@@ -130,3 +141,18 @@ for i in range(len(x_test)):
         print(f"Deviation: {deviations[i]}")
         print("\n")
         print('#########################################')
+
+
+
+def main():
+     '''Method to initialize the whole program by calling all necessary methods to load the data, save in the SQLite db, perform the calculations and visualize logically.'''
+
+     # Calling the method to load all data into the database, inclusive the deviations and its assigned functions
+     delta_y = pd.DataFrame(deviations)
+     nr_ideal_function = pd.DataFrame(deviations)
+     dl.DataLoading.loadChangesDB(delta_y, nr_ideal_function)
+
+
+# Calling the method main to run the program.
+if __name__ == 'main':
+     main()
