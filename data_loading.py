@@ -31,11 +31,10 @@ for row in range(len(ideal_list)):
     )
     session.add(record)
 
-# Function to load data into test table
-def testLoad(x, y, delta_y, nr_ideal_function):
-    for row in range(len(test_list)):
-        record = db.Test(row + 1, x, y, delta_y, nr_ideal_function)
-        session.add(record)
+# Statement to load data into test table
+for row in range(len(test_list)):
+    record = db.Test(row + 1, test_list.loc[row, "x"], test_list.loc[row, "y"], None, None)
+    session.add(record)
 
 # Commiting the changes into the db
 session.commit()
