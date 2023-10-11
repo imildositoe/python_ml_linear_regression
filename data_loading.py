@@ -23,13 +23,13 @@ class DataLoading:
     def __loadTrain():
         '''Private method responsible for loading the Train data from the csv into a created dataframe'''
         for row in range(len(train_list)):
-            record = db.Train(row + 1, train_list.loc[row, "x"], train_list.loc[row, "y1"], train_list.loc[row, "y2"], train_list.loc[row, "y3"], train_list.loc[row, "y4"])
+            record = db.Train(train_list.loc[row, "x"], train_list.loc[row, "y1"], train_list.loc[row, "y2"], train_list.loc[row, "y3"], train_list.loc[row, "y4"])
             session.add(record)
 
     def __loadIdeal():
         '''Private method responsible for loading the Ideal data from the csv into a created dataframe'''
         for row in range(len(ideal_list)):
-            record = db.Ideal(row + 1, 
+            record = db.Ideal(
                       ideal_list.loc[row, "x"], ideal_list.loc[row, "y1"], ideal_list.loc[row, "y2"], ideal_list.loc[row, "y3"], ideal_list.loc[row, "y4"],
                       ideal_list.loc[row, "y5"], ideal_list.loc[row, "y6"], ideal_list.loc[row, "y7"], ideal_list.loc[row, "y8"], ideal_list.loc[row, "y9"],
                       ideal_list.loc[row, "y10"], ideal_list.loc[row, "y11"], ideal_list.loc[row, "y12"], ideal_list.loc[row, "y13"], ideal_list.loc[row, "y14"],
@@ -47,7 +47,7 @@ class DataLoading:
     def __loadTest(delta_y, nr_ideal_function):
         '''Private method responsible for loading the Test data from the csv into a created dataframe'''
         for row in range(len(test_list)):
-            record = db.Test(row + 1, test_list.loc[row, "x"], test_list.loc[row, "y"], delta_y[row], nr_ideal_function[row])
+            record = db.Test(test_list.loc[row, "x"], test_list.loc[row, "y"], delta_y[row], nr_ideal_function[row])
             session.add(record)
 
     def loadChangesDB(self, delta_y, nr_ideal_function):
@@ -56,5 +56,7 @@ class DataLoading:
         calling other 3 inner private methods (_loadTrain(), _loadIdeal(), and _loadTest()).'''
         self.__loadTrain()
         self.__loadIdeal()
-        self.__loadTest(delta_y, nr_ideal_function)
+        # self.__loadTest(delta_y, nr_ideal_function)
         session.commit()
+
+DataLoading.loadChangesDB(DataLoading ,None, None)

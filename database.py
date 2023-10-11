@@ -4,29 +4,29 @@
 '''
 
 from sqlalchemy import create_engine, Column, Float, Integer
-from sqlalchemy.orm import declarative_base
+from sqlalchemy.orm import declarative_base, mapped_column
 
 #database connection
 engine = create_engine('sqlite:///ml_db.sqlite', echo=True)
 base = declarative_base()
 
-class DB(object):
+class DB:
     '''Parent class of the database containing common attributes'''
-    __tablename__ = ''
+    id = mapped_column(Integer, autoincrement=True, primary_key=True, sort_order=-2)
+    x = mapped_column(Float, sort_order=-1)
 
-class Train(base):
+    def __init__(self, x):
+        self.x = x
+
+class Train(base, DB):
     __tablename__ = 'train'
-
-    id = Column(Integer, primary_key=True)
-    x = Column(Float)
     y1 = Column(Float)
     y2 = Column(Float)
     y3 = Column(Float)
     y4 = Column(Float)
 
-    def __init__(self, id, x, y1, y2, y3, y4):
-        self.id = id
-        self.x = x
+    def __init__(self, x, y1, y2, y3, y4):
+        DB.__init__(self, x)
         self.y1 = y1
         self.y2 = y2
         self.y3 = y3
@@ -35,7 +35,7 @@ class Train(base):
 class Ideal(base):
     __tablename__ = 'ideal'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     x = Column(Float)
     y1 = Column(Float); y2 = Column(Float); y3 = Column(Float); y4 = Column(Float); y5 = Column(Float)
     y6 = Column(Float); y7 = Column(Float); y8 = Column(Float); y9 = Column(Float); y10 = Column(Float)
@@ -48,9 +48,8 @@ class Ideal(base):
     y41 = Column(Float); y42 = Column(Float); y43 = Column(Float); y44 = Column(Float); y45 = Column(Float)
     y46 = Column(Float); y47 = Column(Float); y48 = Column(Float); y49 = Column(Float); y50 = Column(Float)
 
-    def __init__(self, id, x, y1, y2, y3, y4, y5, y6, y7, y8, y9, y10, y11, y12, y13, y14, y15, y16, y17, y18, y19, y20, y21, y22, y23, y24, y25
+    def __init__(self, x, y1, y2, y3, y4, y5, y6, y7, y8, y9, y10, y11, y12, y13, y14, y15, y16, y17, y18, y19, y20, y21, y22, y23, y24, y25
                  ,y26, y27, y28, y29, y30, y31, y32, y33, y34, y35, y36, y37, y38, y39, y40, y41, y42, y43, y44, y45, y46, y47, y48, y49, y50):
-        self.id = id
         self.x = x
         self.y1 = y1; self.y2 = y2; self.y3 = y3; self.y4 = y4; self.y5 = y5; self.y6 = y6; self.y7 = y7; self.y8 = y8; self.y9 = y9; self.y10 = y10
         self.y11 = y11; self.y12 = y12; self.y13 = y13; self.y14 = y14; self.y15 = y15; self.y16 = y16; self.y17 = y17; self.y18 = y18; self.y19 = y19; self.y20 = y20
@@ -61,19 +60,18 @@ class Ideal(base):
 class Test(base):
     __tablename__ = 'test'
 
-    id = Column(Integer, primary_key=True)
+    id = Column(Integer, primary_key=True, autoincrement=True)
     x = Column(Float)
     y = Column(Float)
     delta_y = Column(Float)
     nr_ideal_function = Column(Float)
 
-    def __init__(self, id, x, y, delta_y, nr_ideal_function):
-        self.id = id
+    def __init__(self, x, y, delta_y, nr_ideal_function):
         self.x = x
         self.y = y
         self.delta_y = delta_y
         self.nr_ideal_function = nr_ideal_function
 
 # Function to create the db and all tables
-def createAllTables():
-    base.metadata.create_all(engine)
+# def createAllTables():
+base.metadata.create_all(engine)
