@@ -44,19 +44,29 @@ class DataLoading:
             )
             session.add(record)
 
-    def __loadTest(delta_y, nr_ideal_function):
-        '''Private method responsible for loading the Test data from the csv into a created dataframe'''
+    def __loadTest():
+        '''Private method responsible for loading the Test data from the csv into a created dataframe.'''
         for row in range(len(test_list)):
-            record = db.Test(test_list.loc[row, "x"], test_list.loc[row, "y"], delta_y[row], nr_ideal_function[row])
+            record = db.Test(test_list.loc[row, "x"], test_list.loc[row, "y"], 0, 0)
             session.add(record)
 
-    def loadChangesDB(self, delta_y, nr_ideal_function):
-        '''Public method responsible for calling all dataloading functions and commiting the changes into the db.
-        This method is the only public and possible to be called outside and this will be responsible for 
-        calling other 3 inner private methods (_loadTrain(), _loadIdeal(), and _loadTest()).'''
-        self.__loadTrain()
-        self.__loadIdeal()
-        # self.__loadTest(delta_y, nr_ideal_function)
-        session.commit()
+    def loadDeviations(delta_y, nr_ideal_function):
+        '''Public method responsible for loading the Test data from the csv into a created dataframe. 
+        This method is public and possible to be called outside'''
+        for row in range(len(test_list)):
+            session.query(db.Test).filter(db.Test.id == row + 1).\
+            update({db.Test.delta_y: delta_y[row], db.Test.nr_ideal_function: nr_ideal_function[row]}, synchronize_session=False)
+            session.commit()
 
-DataLoading.loadChangesDB(DataLoading ,None, None)
+            # item = session.query(db.Test.__table__).get(row + 1) #.all().get(row + 1)
+            # item.delta_y = delta_y[row]
+            # item.nr_ideal_function = nr_ideal_function[row]
+            # session.commit()
+
+    def loadChangesDB():
+        '''Public method responsible for calling the 2 independent dataloading functions and commiting the changes into the db.
+        This method is public and possible to be called outside and this will be responsible for calling other 2 inner private methods (_loadTrain(), _loadIdeal()).'''
+        DataLoading.__loadTrain()
+        DataLoading.__loadIdeal()
+        DataLoading.__loadTest()
+        session.commit()

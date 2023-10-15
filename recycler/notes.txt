@@ -14,8 +14,6 @@ accuracy = reg.socre(X_test, y_test)
 
 =====================================
 
-To accomplish the given task, you can follow these steps:
-
 1. Read and preprocess the data:
    - Read the training datasets (A), test dataset (B), and ideal functions dataset (C) in CSV format.
    - Preprocess the data by extracting the x and y values from each dataset.
@@ -43,3 +41,16 @@ To accomplish the given task, you can follow these steps:
 Remember to document your code properly, including comments and docstrings, and cite any external sources you use for research.
 
 =========================================================
+
+
+# Iteration with a filter case
+# for row in session.query(db.Train).filter(db.Train.x > 1):
+#     print(row)
+
+# Normal iteration
+# for row in session.query(db.Train).all():
+#     print(row.x, row.y1)
+
+
+# Checking the score of the prediction
+pred_score = r2_score(y_train, y_pred_train)
