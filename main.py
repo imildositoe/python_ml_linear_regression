@@ -142,7 +142,6 @@ def main():
         print(f"Test data ({x_test[i]}, {y_test[i]}):")
         print(f"Assigned ideal function: {assignments[i]}")
         print(f"Deviation: {deviations[i]}")
-        print('#########################################')
 
 
 # Calling the method main to run the program.
