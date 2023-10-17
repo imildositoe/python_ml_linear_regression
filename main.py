@@ -95,7 +95,7 @@ def main():
     assignments = []
 
     # Rewrite the code to extract the deviations and ideal functions
-
+    
 
     # for i in range(len(x_test)):
     #     x_val = x_test.iloc[[i]]
