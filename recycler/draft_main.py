@@ -113,8 +113,8 @@ if __name__ == "__main__":
     print("Chosen Ideal Function Indices:", chosen_ideal_indices)
     
     # Print the assignments and deviations for each test data point
-    # for i in range(len(x_test)):
-    #     print(f"Test Data ({x_test[i]}, {y_test[i]}):")
-    #     print(f"Assigned Ideal Function: {assignments[i]}")
-    #     print(f"Deviation: {deviations[i]}")
-    #     print("\n")
+    for i in range(len(x_test)):
+        print(f"Test Data ({x_test[i]}, {y_test[i]}):")
+        print(f"Assigned Ideal Function: {assignments[i]}")
+        print(f"Deviation: {deviations[i]}")
+        print("\n")
