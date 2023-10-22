@@ -1,6 +1,6 @@
 '''
 @author: Imildo Sitoe <imildo.sitoe@iu-study.org>
-@description: this file contains the main calls to the classes and methods of other related files and contains the main method to start the entire program. 
+@description: this file contains the main calls to the classes and methods of other related files and is the file responsible for starting the entire program. 
 '''
 
 from sqlalchemy.orm import sessionmaker
@@ -8,13 +8,18 @@ import database as db
 import data_loading as dl
 import numpy as np
 import pandas as pd
+import warnings
 import unittest
 from sklearn.linear_model import LinearRegression
 import matplotlib.pyplot as plt
 
+
 #Creating a session
 Session = sessionmaker(bind=db.engine)
 session = Session()
+
+# Calling a function to ignore a future warning during scattering of the last chart
+warnings.simplefilter(action='ignore', category=FutureWarning)
 
 # Creating the database and its tables
 db.createAllTables()
@@ -41,7 +46,6 @@ df_test = pd.DataFrame(test_data)
 x_test = df_test[['x']]
 y_test = df_test[['y']]
 
-
 # Ploting and visualizing the original data logically as described in the task'''
 plt.scatter(x_train, y_train[['y1']], color='red')
 plt.scatter(x_train, y_train[['y2']], color='green')
@@ -67,17 +71,13 @@ plt.show()
 
 # Testing the model using the test dataset
 y_pred_test = lr.predict(x_test)
-# plt.scatter(y_test, y_pred_test)
-# plt.xlabel('Y test')
-# plt.ylabel('Y prediction test')
-# plt.title('TEST DATA')
-# plt.show()
 
 # Deviation and Ideal functions section (Choosing the ideal fucntion)
 # Calculating and returning the sum of squared y deviations for each ideal function for the provided training data
 def sum_squared_dev(y_train, y_ideal):
     return np.sum((y_train - y_ideal) ** 2, axis=0)
 
+# Summing the squared deviations through calling the function sum_squared_dev
 ideal_function_errors = sum_squared_dev(y_train, y_ideal)
 
 # Choosing the 4 ideal functions that minimize the sum of squared deviations
@@ -94,18 +94,23 @@ deviations = []
 assignments = []
 
 for i in range(len(x_test)):
-    x_val = x_test.iloc[[i]]
     y_val = y_test.iloc[[i]]
-
     assigned_function = None
     min_dev = float('inf')
-    
+
     for j, ideal_function in enumerate(chosen_ideal_functions.T):
-        deviation = get_deviation(y_val, ideal_function)
-        if deviation.item() < min_dev and deviation.item() <= np.sqrt(2) * np.max(ideal_function_errors[chosen_ideal_indices[j]]):
-            min_dev = deviation
-            assigned_function = j
-        
+        if j == 4:
+            break
+        else:
+            deviation = get_deviation(y_val, ideal_function).item()
+            ife = pd.DataFrame(ideal_function_errors)
+            df = pd.DataFrame(chosen_ideal_indices)
+            cii = df[0].iloc[j]
+
+            if deviation < min_dev and deviation >= np.sqrt(2) * np.max(ife[0].iloc[cii]):
+                min_dev = deviation
+                assigned_function = j
+            
     if assigned_function is not None:
         assignments.append(assigned_function)
         deviations.append(min_dev)
@@ -114,31 +119,24 @@ for i in range(len(x_test)):
         deviations.append(None)
 
 # Saving the deviations and the nr of ideal functions into the SQLite db
-if df_test['delta_y'].iloc[1] == 0:
+if df_test['delta_y'].iloc[1] == 0 or df_test['delta_y'].iloc[1] == None:
     dl.DataLoading.loadDeviations(assignments, deviations)
 
 # Logically visualize the chosen ideal functions
-# for i, ideal_function in enumerate(chosen_ideal_functions.T):
-#     plt.plot(x_ideal, ideal_function, label=f'Chosen Ideal Function {i + 1}', linestyle='--')
+# Plot the chosen ideal functions
+for i, ideal_function in enumerate(chosen_ideal_functions.T):
+    plt.plot(x_ideal.iloc[i], ideal_function)
 
-# # Plot the test data with assignments and deviations
-# for i, assignment in enumerate(assignments):
-#     if assignment is not None:
-#         color = ['b', 'g', 'r', 'm'][assignment]
-#         plt.scatter(x_test[i], y_test[i], label=f'Test Data {i}', marker='x', color=color)
-#         plt.annotate(f'Deviation: {deviations[i]:.2f}', (x_test[i], y_test[i]), textcoords="offset points", xytext=(0, 10), ha='center')
+# Plot the test data with assignments and deviations
+for i, assignment in enumerate(assignments):
+    if assignment is not None:
+        color = ['b', 'g', 'r', 'm'][assignment]
+        plt.scatter(float(x_test.iloc[i]), float(y_test.iloc[i]), marker='.', color=color)
 
-# plt.xlabel('x')
-# plt.ylabel('y')
-# plt.title('IDEAL FUNCTIONS AND DEVIATIONS VISUALIZATION')
-# plt.show()
-
-
-for i in range(len(x_test)):
-    print(f"Test data ({x_test[i]}, {y_test[i]}):")
-    print(f"Assigned ideal function: {assignments[i]}")
-    print(f"Deviation: {deviations[i]}")
-
+plt.xlabel('X')
+plt.ylabel('Y')
+plt.title('IDEAL FUNCTIONS AND DEVIATIONS VISUALIZATION')
+plt.show()
 
 # Class for unit tests for the program
 class TestDevCalculation(unittest.TestCase):
@@ -147,7 +145,3 @@ class TestDevCalculation(unittest.TestCase):
         y_ideal = np.array([0.5, 2.5, 3.5])
         deviation = get_deviation(y_test, y_ideal)
         self.assertAlmostEqual(deviation, 0.5, delta=1e-6)
-
-# Calling the method main to run the program.
-# if __name__ == "__main__":
-#      main()

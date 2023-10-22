@@ -52,16 +52,15 @@ for i in range(len(x_test)):
     for j, ideal_function in enumerate(chosen_ideal_functions.T):
         deviation = calculate_deviation(y_val, ideal_function)
 
-        print('DEVIATION: ', deviation.item())
-        print('MIN DEV: ', min_deviation)
-        print('=============================================================')
+        print('MAX(ideal_function_errors[chosen_ideal_indices[',j,']]): ', np.max(ideal_function_errors[chosen_ideal_indices[j]]))
 
         if deviation < min_deviation and deviation <= np.sqrt(2) * np.max(ideal_function_errors[chosen_ideal_indices[j]]):
-            print('DEVIATION INSIDE CONDITION: ', deviation.item())
-            print('ASSIGNED FUNCTIONL: ', j)
+            print('INSIDE')
             min_deviation = deviation
             assigned_function = j
     
+    print('=============================================================')
+
     if assigned_function is not None:
         assignments.append(assigned_function)
         deviations.append(min_deviation)
@@ -114,7 +113,8 @@ if __name__ == "__main__":
     
     # Print the assignments and deviations for each test data point
     for i in range(len(x_test)):
-        print(f"Test Data ({x_test[i]}, {y_test[i]}):")
-        print(f"Assigned Ideal Function: {assignments[i]}")
-        print(f"Deviation: {deviations[i]}")
-        print("\n")
+        # print(f"Test Data ({x_test[i]}, {y_test[i]}):")
+        # print(f"Assigned Ideal Function: {assignments[i]}")
+        # print(f"Deviation: {deviations[i]}")
+        # print("\n")
+        pass

@@ -1,12 +1,12 @@
 '''
 @author: Imildo Sitoe <imildo.sitoe@iu-study.org>
-@description: this file contains classes and methods esponsible for creating the db and its tables
+@description: this file contains classes and methods responsible for creating the db and its tables
 '''
 
 from sqlalchemy import create_engine, Column, Float, Integer
 from sqlalchemy.orm import declarative_base, mapped_column
 
-#database connection
+# Database connection
 engine = create_engine('sqlite:///ml_db.sqlite', echo=True)
 base = declarative_base()
 
@@ -68,8 +68,6 @@ class Test(base, DB):
         self.y = y
         self.delta_y = delta_y
         self.nr_ideal_function = nr_ideal_function
-
-
 
 def createAllTables():
     '''Function responsible in creating the db and all tables'''

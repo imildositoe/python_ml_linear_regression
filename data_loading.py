@@ -17,6 +17,7 @@ ideal_list = pd.read_csv('ideal.csv')
 test_list = pd.read_csv('test.csv')
 
 class DataLoading:
+    '''Main class of the Data Loading file containing all the loading methods into the db'''
     def __init__(self):
         pass
 
@@ -51,17 +52,12 @@ class DataLoading:
             session.add(record)
 
     def loadDeviations(delta_y, nr_ideal_function):
-        '''Public method responsible for loading the Test data from the csv into a created dataframe. 
+        '''Public method responsible for saving the deviations and nr_ideal_functions into the db by updating the Test table. 
         This method is public and possible to be called outside'''
         for row in range(len(test_list)):
             session.query(db.Test).filter(db.Test.id == row + 1).\
             update({db.Test.delta_y: delta_y[row], db.Test.nr_ideal_function: nr_ideal_function[row]}, synchronize_session=False)
             session.commit()
-
-            # item = session.query(db.Test.__table__).get(row + 1) #.all().get(row + 1)
-            # item.delta_y = delta_y[row]
-            # item.nr_ideal_function = nr_ideal_function[row]
-            # session.commit()
 
     def loadChangesDB():
         '''Public method responsible for calling the 2 independent dataloading functions and commiting the changes into the db.
