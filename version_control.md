@@ -1,65 +1,51 @@
-To clone the Git repository and work on the "develop" branch locally, and then later introduce your changes to the team's "develop" branch, you can follow these steps using Git commands:
+### To fulfill the version control part, we follow the steps below (these commands are performed in the command line): 
 
-### Cloning the Repository and Working on the "develop" Branch:
-
-1. Clone the repository to your local PC:
+1. Clone the repository to my local directory using the repository link (this is the actual link of the project):
    ```bash
-   git clone <repository_url>
+   git clone https://github.com/imildositoe/python_ml_linear_regression_task.git
    ```
 
-2. Change your working directory to the cloned repository:
+2. Change the directory to the just cloned repository (the directory will have the name of the repository):
    ```bash
-   cd <repository_directory>
+   cd python_ml_linear_regression_task
    ```
 
-3. Switch to the "develop" branch (assuming it exists):
+3. Access the team branch by switching to the develop branch:
    ```bash
    git checkout develop
    ```
 
-4. Create and switch to a new branch for your work (replace `<branch_name>` with a suitable branch name):
+4. Create a new branch called my_dev_branch and switch to it to store my modifications: 
    ```bash
-   git checkout -b <branch_name>
+   git checkout -b my_dev_branch
    ```
 
-5. Make your changes to the project, including the new function.
-
-6. Stage your changes for commit:
+5. After the changes, I stage them for commit:
    ```bash
    git add .
    ```
 
-7. Commit your changes with a descriptive message:
+6. Commit my changes with a message that describes them:
    ```bash
-   git commit -m "Add new function and other improvements"
+   git commit -m "New function added."
    ```
 
-8. Push your changes to your fork or branch on the remote repository (replace `<branch_name>` with your branch name and `<remote>` with the remote repository name, often "origin" by default):
+7. Push my changes my "my_dev_brach" branch: 
    ```bash
-   git push <remote> <branch_name>
+   git push -u origin my_dev_branch
    ```
 
-### Introducing Changes to the Team's "develop" Branch:
+8. After pushing the changes to my_dev_branch, I create a pull request on the remote repository GitHub website. The I wait for my team to provide feedback make necessary ammendments to the branch. 
 
-1. Create a pull request (PR) on the remote repository's website (e.g., GitHub, GitLab) from your branch to the team's "develop" branch. Include a description of your changes.
-
-2. Wait for one or several team members to review your changes and provide feedback.
-
-3. Address any feedback and make necessary modifications to your branch.
-
-4. Push the changes to your branch again:
+9. After the modifications, I push my changes again to the my_dev_branch:
    ```bash
-   git push <remote> <branch_name>
+   git push -u origin my_dev_branch
    ```
 
-5. Inform the team that you have updated your PR.
+10. After the approval of the modifications in my_dev_branch, the repository owner merges them into the develop branch.
 
-6. Once your changes are approved by the team and any continuous integration checks pass, the team lead or repository owner can merge your changes into the "develop" branch.
-
-7. After the merge, you can update your local "develop" branch with the latest changes from the remote repository:
+11. After the merge has been performed, I pull the develop branch fully updated:
    ```bash
    git checkout develop
-   git pull <remote> develop
+   git pull origin develop
    ```
-
-This process allows you to clone the repository, work on your feature branch, and contribute your changes to the team's "develop" branch through a pull request, ensuring that your code is reviewed and tested by the team before being merged into the main development branch.
