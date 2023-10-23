@@ -30,12 +30,12 @@
    git commit -m "New function added."
    ```
 
-7. Push my changes my "my_dev_brach" branch: 
+7. Push my changes to my "my_dev_brach" branch: 
    ```bash
    git push -u origin my_dev_branch
    ```
 
-8. After pushing the changes to my_dev_branch, I create a pull request on the remote repository GitHub website. The I wait for my team to provide feedback make necessary ammendments to the branch. 
+8. After pushing the changes to my_dev_branch, I create a pull request on the remote repository GitHub website. Then I wait for my team to provide feedback and make necessary amendments to the branch. 
 
 9. After the modifications, I push my changes again to the my_dev_branch:
    ```bash
