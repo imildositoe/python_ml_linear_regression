@@ -24,7 +24,7 @@ warnings.simplefilter(action='ignore', category=FutureWarning)
 # Creating the database and its tables
 db.createAllTables()
 
-# Calling the statement to load Training and Ideal data into the database, but birst verify whether the csv data have being already loaded into the db
+# Calling the statement to load Training and Ideal data into the database, but birst verify whether the csv data have been already loaded into the db
 if pd.DataFrame(session.query(db.Train.__table__).all()).shape[0] == 0:
     dl.DataLoading.loadChangesDB()
 
@@ -46,7 +46,7 @@ df_test = pd.DataFrame(test_data)
 x_test = df_test[['x']]
 y_test = df_test[['y']]
 
-# Ploting and visualizing the original data logically as described in the task'''
+# Ploting and visualizing the original data logically as described in the task
 plt.scatter(x_train, y_train[['y1']], color='red')
 plt.scatter(x_train, y_train[['y2']], color='green')
 plt.scatter(x_train, y_train[['y3']], color='magenta')
@@ -72,12 +72,12 @@ plt.show()
 # Testing the model using the test dataset
 y_pred_test = lr.predict(x_test)
 
-# Deviation and Ideal functions section (Choosing the ideal fucntion)
+# Deviation and Ideal functions section (Choosing the ideal function)
 # Calculating and returning the sum of squared y deviations for each ideal function for the provided training data
 def sum_squared_dev(y_train, y_ideal):
     return np.sum((y_train - y_ideal) ** 2, axis=0)
 
-# Summing the squared deviations through calling the function sum_squared_dev
+# Summing the squared deviations by calling the function sum_squared_dev
 ideal_function_errors = sum_squared_dev(y_train, y_ideal)
 
 # Choosing the 4 ideal functions that minimize the sum of squared deviations
